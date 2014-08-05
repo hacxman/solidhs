@@ -1,0 +1,25 @@
+name:                solidhs
+version:             0.1.0.0
+synopsis:            Simplified solidpython
+category:            Graphics
+homepage:            https://github.com/hacxman/solidhs
+license:             MIT
+license-file:        LICENSE
+author:              hexo
+maintainer:          hacxman@gmail.com
+copyright:           (c) 2014 hexo
+stability:           experimental
+build-type:          Simple
+cabal-version:       >=1.8
+
+library
+  hs-Source-Dirs:      src
+  -- Modules exported by the library.
+  -- exposed-modules:     
+
+  -- Modules included in this library but not exported.
+  -- other-modules:       
+
+  -- Other library packages from which modules are imported.
+  --build-depends:       base ==4.6.*
+  build-depends:       base ==4.6.*, vector-space
