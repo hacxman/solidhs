@@ -15,7 +15,7 @@ cabal-version:       >=1.8
 library
   hs-Source-Dirs:      src
   -- Modules exported by the library.
-  -- exposed-modules:     
+  exposed-modules:     Graphics.Solidhs
 
   -- Modules included in this library but not exported.
   -- other-modules:       
@@ -23,3 +23,9 @@ library
   -- Other library packages from which modules are imported.
   --build-depends:       base ==4.6.*
   build-depends:       base ==4.6.*, vector-space
+
+test-suite main-test
+  type:                exitcode-stdio-1.0
+  main-is:             main-test.hs
+  hs-source-dirs:      tests/src
+  build-depends:       solidhs, base
