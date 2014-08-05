@@ -1,4 +1,4 @@
-module Graphics.Solidhs ( ) where
+module Graphics.Solidhs where
 
 import Data.VectorSpace
 
@@ -32,3 +32,4 @@ data CSG = Union  [CSG]
 --         | Dxf_linear_extrude', 'args': ['file'], 'kwargs': ['layer', 'height', 'center', 'convexity', 'twist', 'slices']} ,
 --         | Projection', 'args': [], 'kwargs': ['cut']} ,
          | Surface         String R3 N -- file, center, convexity
+        deriving Show
