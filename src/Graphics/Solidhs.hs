@@ -1,3 +1,4 @@
+{-# LANGUAGE KindSignatures #-}
 module Graphics.Solidhs where
 
 import Data.VectorSpace
@@ -32,4 +33,45 @@ data CSG = Union  [CSG]
 --         | Dxf_linear_extrude', 'args': ['file'], 'kwargs': ['layer', 'height', 'center', 'convexity', 'twist', 'slices']} ,
 --         | Projection', 'args': [], 'kwargs': ['cut']} ,
          | Surface         String R3 N -- file, center, convexity
+         | ECSG
         deriving Show
+
+data CsgM a = CsgM {lst :: [CSG], val :: a}
+
+runCM :: CsgM a -> a
+runCM m = val m
+
+instance Monad (CsgM) where
+  csgm >>= f = CsgM (lst csgm ++ [evl]) evl
+    where evl = (val.f.val) csgm
+  return x = CsgM [] x
+-- \x -> a ++ [f a]
+
+(+) (Union a) (Union b) = Union (b ++ a)
+(+) (Union a)        b  = Union (b : a)
+(+)        a  (Union b) = Union (a : b)
+(+)        a         b  = Union [a, b]
+
+(-) (Diff a) (Diff b)  = Diff (b ++ a)
+(-) (Diff a)        b  = Diff (b : a)
+(-)        a  (Diff b) = Diff (a : b)
+(-)        a        b  = Diff [a, b]
+
+(/) (Intersection a) (Intersection b) = Intersection (b ++ a)
+(/) (Intersection a)               b  = Intersection (b : a)
+(/)               a  (Intersection b) = Intersection (a : b)
+(/)               a                b  = Intersection [a, b]
+
+translate r3 = \csg -> Translate r3 csg
+sphere r r3  = \csg -> Sphere r3 csg
+cylinder r r3  = \csg -> Cylinder r3 csg
+cube r r3  = \csg -> Cube r3 csg
+
+
+--main = do
+--  translate (1.0, 2.3, 0.0) $ runCM $ sphere 1.0 (0.1,0.3,0.5) >>= cube 0.4 (-4, 0.0, 2.4)
+
+--  translate (1.0, 2.3, 0.0) $ do
+--    sphere 1.0 (0.1,0.3,0.5)
+--    cube 0.4 (-4, 0.0, 2.4)
+--

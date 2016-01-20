@@ -1,2 +1,3 @@
 #!/bin/bash
-cabal build && cabal test && cat dist/test/*.log
+CA=~/.cabal/bin/cabal
+$CA build && $CA test && cat dist/test/*.log
