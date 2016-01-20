@@ -25,7 +25,7 @@ library
   build-depends:       base ==4.6.*, vector-space
 
 test-suite main-test
-  type:                exitcode-stdio-1.0
-  main-is:             main-test.hs
+  type:                detailed-0.9
+  test-module:             MainTest
   hs-source-dirs:      tests/src
   build-depends:       solidhs, base
